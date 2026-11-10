@@ -1,0 +1,8 @@
+@tailwind base;@tailwind components;@tailwind utilities;
+:root{color-scheme:dark}*{box-sizing:border-box}body{background:#08090b;color:#eeeef0;background-image:radial-gradient(ellipse at 50% -25%,#30343b,transparent 54%);min-height:100vh}
+.heading{font-family:Impact,'Arial Narrow',sans-serif;font-weight:900;letter-spacing:.015em;text-transform:uppercase;line-height:.92}
+.eyebrow{font-size:10px;letter-spacing:.22em;font-weight:700;color:#a5a9b0;text-transform:uppercase}
+.panel{background:linear-gradient(145deg,#1b1e22,#101215);border:1px solid #33373d}
+.input{display:block;width:100%;background:#090b0d;border:1px solid #454951;padding:14px 15px;color:#f2f3f4;outline:none}
+.input:focus{border-color:#c4c7cd}.btn{display:inline-flex;justify-content:center;align-items:center;padding:13px 19px;letter-spacing:.14em;font-size:11px;font-weight:800;text-transform:uppercase;transition:filter .2s}.btn:hover{filter:brightness(1.12)}.btn-primary{background:linear-gradient(110deg,#f0f0f0,#aeb3b9);color:#111316}.btn-outline{border:1px solid #5b6068;color:#ddd}
+.table-wrap{overflow-x:auto;border:1px solid #34383e}table{width:100%;min-width:640px;border-collapse:collapse;text-align:left}th{background:#17191d;color:#aeb3ba;text-transform:uppercase;font-size:10px;letter-spacing:.12em}td,th{padding:16px;border-bottom:1px solid #2e3238;font-size:12px}a:focus-visible,button:focus-visible{outline:2px solid white;outline-offset:3px}

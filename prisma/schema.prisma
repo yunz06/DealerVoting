@@ -1,0 +1,81 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  MEMBER
+  ADMIN
+  OWNER
+}
+
+enum PollStatus {
+  DRAFT
+  OPEN
+  CLOSED
+}
+
+model User {
+  id           String     @id @default(cuid())
+  username     String     @unique @db.VarChar(80)
+  displayName  String     @db.VarChar(120)
+  passwordHash String
+  role         Role       @default(MEMBER)
+  active       Boolean    @default(true)
+  createdAt    DateTime   @default(now())
+  votes        Vote[]
+  polls        Poll[]     @relation("PollCreator")
+  auditLogs    AuditLog[]
+}
+
+model Poll {
+  id          String       @id @default(cuid())
+  title       String       @db.VarChar(180)
+  description String?      @db.Text
+  status      PollStatus   @default(OPEN)
+  startAt     DateTime?
+  endAt       DateTime?
+  createdAt   DateTime     @default(now())
+  createdById String
+  createdBy   User         @relation("PollCreator", fields: [createdById], references: [id])
+  options     PollOption[]
+  votes       Vote[]
+}
+
+model PollOption {
+  id       String   @id @default(cuid())
+  pollId   String
+  poll     Poll     @relation(fields: [pollId], references: [id], onDelete: Cascade)
+  text     String   @db.VarChar(240)
+  position Int      @default(0)
+  votes    Vote[]
+
+  @@unique([id, pollId])
+}
+
+model Vote {
+  id        String     @id @default(cuid())
+  pollId    String
+  userId    String
+  optionId  String
+  createdAt DateTime   @default(now())
+  poll      Poll       @relation(fields: [pollId], references: [id])
+  user      User       @relation(fields: [userId], references: [id])
+  option    PollOption @relation(fields: [optionId, pollId], references: [id, pollId])
+
+  @@unique([pollId, userId])
+  @@index([pollId, optionId])
+}
+
+model AuditLog {
+  id        String   @id @default(cuid())
+  userId    String
+  action    String
+  targetId  String?
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id])
+}

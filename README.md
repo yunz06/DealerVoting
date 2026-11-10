@@ -109,3 +109,11 @@ npm run dev
 - `prisma/schema.prisma`: 5 bảng dữ liệu
 - `prisma/migrations`: migration production
 - `public/dealers-logo.png`: logo gốc, giữ nguyên
+
+
+## V1.3 patch (Netlify build fixes)
+
+- Fixed the malformed `findUnique` call in `src/app/layout.tsx`.
+- Fixed the multiline JSX placeholder in `src/app/admin/polls/new/page.tsx`.
+- Kept the existing PostgreSQL schema, migration, and Owner bootstrap behavior unchanged.
+- This patch addresses the two syntax errors reported by the Netlify build log. A full production build still needs to be confirmed by Netlify after upload.
